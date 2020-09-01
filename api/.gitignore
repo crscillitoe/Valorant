@@ -1,2 +1,5 @@
+__pycache__/
+__pycache__/*
+
 secrets.json
 token.pickle
