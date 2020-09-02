@@ -4,7 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AgentNameToIconService {
-  base_image_path: string = '/assets/images/agents/';
+  static base_image_path: string = '/assets/images/agents/';
 
-  constructor() {}
+  /**
+   * Returns the localized path to the agent's icon image file
+   *
+   * @param agentName The name of the agent
+   */
+  static GetImagePath(agentName: string) {
+    return `${this.base_image_path}${agentName}.png`.toLowerCase();
+  }
 }

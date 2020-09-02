@@ -1,8 +1,10 @@
 from __future__ import print_function
 
 from flask import Flask, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 import json
 import pickle
@@ -85,6 +87,7 @@ def get_games():
         .execute()
     ).get("values", [])
 
+    result.reverse()
     return {"page": page, "pages": math.ceil(num_games / 10), "games": result}
 
 
