@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AgentNameToIconService {
+  /**
+   * The folder that holds the agent icon images
+   */
   static base_image_path: string = '/assets/images/agents/';
 
   /**
