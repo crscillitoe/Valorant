@@ -10,8 +10,10 @@ import { GameCardComponent } from './game-card/game-card.component';
 
 @NgModule({
   declarations: [AppComponent, DetailViewComponent, MainMenuComponent, GameCardComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), AppRoutingModule, HttpClientModule],
+
+
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
