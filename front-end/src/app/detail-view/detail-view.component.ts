@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
+import { ApiService, Game } from '../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,10 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detail-view.component.scss'],
 })
 export class DetailViewComponent implements OnInit {
+  game: Game;
+
   constructor(private api: ApiService, private route: ActivatedRoute) {
     this.route.params.subscribe((params) => {
       api.getGameByID(+params['id']).subscribe((game) => {
         console.log(game);
+        this.game = game.game;
       });
     });
   }

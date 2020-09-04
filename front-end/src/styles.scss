@@ -1,2 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Peta&display=swap");
+
+.game-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.game {
+  height: 100px;
+  margin: 10px;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.kda {
+  padding-top: 15px;
+  padding-left: 50px;
+  font-size: 50px;
+  font-family: "Lexend Peta", sans-serif;
+}
+
+.icon {
+  padding-top: 10px;
+  height: 80px;
+}

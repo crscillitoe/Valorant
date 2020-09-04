@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailViewComponent } from './detail-view/detail-view.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
+import { GameCardComponent } from './game-card/game-card.component';
 
 @NgModule({
-  declarations: [AppComponent, DetailViewComponent, MainMenuComponent],
+  declarations: [AppComponent, DetailViewComponent, MainMenuComponent, GameCardComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
