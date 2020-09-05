@@ -1,3 +1,25 @@
 <div class="stats-container">
-  <img class="circular" [src]="getAgentIcon(stats.favorite_agent)" />
+  <img class="pfp circular" [src]="getAgentIcon(stats.favorite_agent)" />
+
+  <div class="stats">
+    <div class="username">WOOHOOJIN</div>
+    <mat-divider></mat-divider>
+    <div class="winrate">
+      {{ stats.wins }}W {{ stats.losses }}L
+      <br />
+      Win Ratio {{ stats.win_rate }}
+    </div>
+    <mat-divider></mat-divider>
+    <div class="KDA">
+      {{ kda }} KDA
+      <br />
+      {{ formatKDA(stats.kills_average) }} /
+      {{ formatKDA(stats.deaths_average) }} /
+      {{ formatKDA(stats.assists_average) }}
+    </div>
+    <mat-divider></mat-divider>
+    <div class="center-rank">
+      <img class="rank" [src]="getRankIcon(stats.current_rank)" />
+    </div>
+  </div>
 </div>

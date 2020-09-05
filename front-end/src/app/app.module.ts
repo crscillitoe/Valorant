@@ -9,6 +9,8 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { GameCardComponent } from './game-card/game-card.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,14 @@ import { MatIconModule } from '@angular/material/icon';
     GameCardComponent,
     ProfileCardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, MatIconModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatDividerModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

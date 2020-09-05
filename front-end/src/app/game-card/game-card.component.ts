@@ -27,6 +27,14 @@ export class GameCardComponent implements OnInit {
     }
   }
 
+  getOutline(game: Game) {
+    if (game[1] === 'Loss') {
+      return 'solid #ffccbc';
+    } else {
+      return 'solid #c8e6c9';
+    }
+  }
+
   getRankIcon(icon: string) {
     return RankToIconService.GetImagePath(icon);
   }

@@ -10,10 +10,13 @@ import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
 })
 export class ProfileCardComponent implements OnInit {
   @Input() stats: GetStatsResponse;
+  kda: string;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.kda = this.calculateKDA();
+  }
 
   getRankIcon(icon: string) {
     return RankToIconService.GetImagePath(icon);
@@ -21,5 +24,18 @@ export class ProfileCardComponent implements OnInit {
 
   getAgentIcon(icon: string) {
     return AgentNameToIconService.GetImagePath(icon);
+  }
+
+  formatKDA(num: string): string {
+    const asNumber = +num;
+    return asNumber.toFixed(2);
+  }
+
+  calculateKDA(): string {
+    const kills = +this.stats.kills_average;
+    const deaths = +this.stats.deaths_average;
+    const assists = +this.stats.assists_average;
+
+    return ((kills + assists) / deaths).toFixed(2);
   }
 }
