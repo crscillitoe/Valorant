@@ -1,0 +1,21 @@
+<div class="my-row">
+  <img class="agent-icon" [src]="getAgentIcon(winrate.agent)" />
+
+  <div class="bar">
+    <div [style.width]="percentWins()" [ngStyle]="getWinStyle()" class="wins">
+      <div class="text">
+        {{ getWins() }}
+      </div>
+    </div>
+
+    <div
+      [style.width]="percentLosses()"
+      [ngStyle]="getLossStyle()"
+      class="losses"
+    >
+      <div class="text">
+        {{ getLosses() }}
+      </div>
+    </div>
+  </div>
+</div>

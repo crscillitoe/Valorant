@@ -66,15 +66,17 @@ def get_games():
     num_games = get_num_games()
 
     # Page size is 10
-    start_index = num_games - 9
+    page_size = 8
+
+    start_index = num_games - (page_size - 2)
     end_index = num_games + 1
 
-    start_index -= page * 10
-    end_index -= page * 10
+    start_index -= page * page_size
+    end_index -= page * page_size
 
     if start_index < 2:
         start_index = 2
-        end_index = 12
+        end_index = 2 + (page_size - 1)
 
     # Grab the 10 most recent games
     result = (
@@ -88,7 +90,29 @@ def get_games():
     ).get("values", [])
 
     result.reverse()
-    return {"page": page, "pages": math.ceil(num_games / 10), "games": result}
+    return {"page": page, "pages": math.ceil(num_games / page_size), "games": result}
+
+
+@app.route("/api/v1/getWinrates", methods=["GET"])
+def get_winrates():
+    service = build("sheets", "v4", credentials=creds)
+    sheet = service.spreadsheets()
+    result = (
+        sheet.values()
+        .get(spreadsheetId=SPREADSHEET_ID, range="Champ Win Rates!B1:M3")
+        .execute()
+    )
+    values = result.get("values", [])
+    to_return = []
+    for i in range(len(values[0])):
+        to_return.append(
+            {
+                "agent": values[0][i],
+                "win_rate": values[1][i],
+                "games_played": values[2][i],
+            }
+        )
+    return {"win_rates": to_return}
 
 
 @app.route("/api/v1/getStats", methods=["GET"])

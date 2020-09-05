@@ -4,6 +4,7 @@ import {
   ApiService,
   Game,
   GetStatsResponse,
+  GetWinratesResponse,
 } from '../services/api.service';
 import { RankToIconService } from '../services/rank-to-icon.service';
 import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
@@ -16,16 +17,29 @@ import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
 export class MainMenuComponent {
   games: GetGamesResponse;
   stats: GetStatsResponse;
+  winRates: GetWinratesResponse;
 
   constructor(private api: ApiService) {
     api.getGames().subscribe((games) => {
-      console.log(games);
       this.games = games;
     });
 
     api.getStats().subscribe((stats) => {
-      console.log(stats);
       this.stats = stats;
+    });
+
+    api.getWinrates().subscribe((winRates) => {
+      this.winRates = winRates;
+      this.winRates.win_rates = this.winRates.win_rates.filter((a) => {
+        if (a.games_played === 'No Games Played') return false;
+        return true;
+      });
+
+      this.winRates.win_rates.sort((a, b) => {
+        if (+a.games_played < +b.games_played) return 1;
+        if (+a.games_played > +b.games_played) return -1;
+        return 0;
+      });
     });
   }
 

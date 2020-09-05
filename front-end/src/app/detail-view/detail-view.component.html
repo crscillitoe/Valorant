@@ -1,1 +1,19 @@
-<app-game-card [game]="game"></app-game-card>
+<div *ngIf="game" class="center">
+  <div class="vertical-flex">
+    <div class="flex-center">
+      <app-game-card [game]="game"></app-game-card>
+    </div>
+
+    <ng-container *ngIf="game[11] !== 'N/A'">
+      <iframe
+        class="video-player"
+        width="100%"
+        height="100%"
+        [src]="'https://www.youtube.com/embed/' + getYoutubeUUID() | safe"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </ng-container>
+  </div>
+</div>

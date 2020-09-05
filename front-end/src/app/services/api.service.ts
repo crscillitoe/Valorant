@@ -37,6 +37,15 @@ export class ApiService {
   }
 
   /**
+   * Returns winrate information for each agent
+   */
+  getWinrates(): Observable<GetWinratesResponse> {
+    return this.http.get<GetWinratesResponse>(
+      `${this.api_url}/api/v1/getWinrates`
+    );
+  }
+
+  /**
    * Returns a formatted version of the given game
    * @param game
    */
@@ -52,6 +61,16 @@ export class ApiService {
       VOD: ${game[11]}
     `;
   }
+}
+
+export interface GetWinratesResponse {
+  win_rates: Array<Winrate>;
+}
+
+export interface Winrate {
+  agent: string;
+  games_played: string;
+  win_rate: string;
 }
 
 export interface GetGamesResponse {

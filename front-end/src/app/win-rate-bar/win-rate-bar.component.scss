@@ -1,0 +1,35 @@
+.agent-icon {
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.my-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.bar {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+}
+
+.wins {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: rgb(165, 214, 167);
+}
+
+.losses {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgb(239, 154, 154);
+  text-align: right;
+}
+
+.text {
+  padding: 5px;
+  font-family: "Righteous", cursive;
+}

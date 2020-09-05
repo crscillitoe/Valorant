@@ -11,6 +11,9 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { WinRateBarsComponent } from './win-rate-bars/win-rate-bars.component';
+import { WinRateBarComponent } from './win-rate-bar/win-rate-bar.component';
+import { SafePipe } from './services/safe-pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MainMenuComponent,
     GameCardComponent,
     ProfileCardComponent,
+    WinRateBarsComponent,
+    WinRateBarComponent,
+    SafePipe,
   ],
   imports: [
     BrowserModule,

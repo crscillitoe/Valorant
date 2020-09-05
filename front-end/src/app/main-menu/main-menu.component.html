@@ -1,7 +1,9 @@
 <div class="main-menu">
-  <ng-container *ngIf="stats && games">
+  <ng-container *ngIf="stats && games && winRates">
     <div class="side-menu">
       <app-profile-card [stats]="stats"></app-profile-card>
+
+      <app-win-rate-bars [winrates]="winRates"></app-win-rate-bars>
     </div>
     <div class="game-list">
       <ng-container *ngFor="let game of games.games">
@@ -9,7 +11,7 @@
       </ng-container>
     </div>
   </ng-container>
-  <ng-container *ngIf="!stats || !games">
+  <ng-container *ngIf="!stats || !games || !winRates">
     <div class="center">
       <mat-spinner color="accent"></mat-spinner>
     </div>

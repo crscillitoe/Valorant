@@ -19,5 +19,9 @@ export class DetailViewComponent implements OnInit {
     });
   }
 
+  getYoutubeUUID() {
+    return this.game[11].split('/')[3];
+  }
+
   ngOnInit(): void {}
 }
