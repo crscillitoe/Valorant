@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
-import { Game } from '../services/api.service';
+import { Game, GetStatsResponse } from '../services/api.service';
 import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
 import { Router } from '@angular/router';
 import { env } from 'process';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,13 @@ export class MetadataService {
    * These are the default meta tags that will be applied to a page
    * if no tags are specified.
    */
-  defaultTags() {
+  defaultTags(generalStats: GetStatsResponse) {
     this.allTypeTags();
     this.allUrlTags();
-    this.allTitleTags('Valorant Stat Tracking Site');
+    this.allTitleTags(`${generalStats.current_rank} ${generalStats.favorite_agent} Main`);
+    this.allImageTags(AgentNameToIconService.GetImagePath(generalStats.favorite_agent));
 
-    this.allDescriptionTags('Valorant Stat Tracking Site')
+    this.allDescriptionTags(`Win rate: ${generalStats.win_rate} Total wins: ${generalStats.wins}`);
     this.addOrUpdateTag({ name: 'keywords', content: this.getDefaultKeywords() });
     this.addOrUpdateTag({ name: 'robots', content: 'index, follow' });
   }
@@ -37,19 +39,19 @@ export class MetadataService {
    */
   gameTags(game: Game) {
     this.allTypeTags();
-    this.allUrlTags();
+    this.allUrlTags(`/game/${game[0]}`);
     const gameOutcome = game[1];
-    const agentName = game[3];
+    const agentName = game[2];
     this.allTitleTags(`Match ${game[0]}: ${agentName} ${gameOutcome}`);
     this.allImageTags(AgentNameToIconService.GetImagePath(agentName));
 
-    this.allDescriptionTags(`Match ${game[0]}: ${game[3]} ${game[1]}`)
+    this.allDescriptionTags(`${game[3]} | ${game[5]}/${game[6]}/${game[7]} | ${game[9]}`);
     this.addOrUpdateTag({ name: 'keywords', content: this.addDefaultKeywords(`${agentName}, ${agentName} ${gameOutcome}`) });
     this.addOrUpdateTag({ name: 'robots', content: 'index, follow' });
   }
 
   private addOrUpdateTag(tag: MetaDefinition) {
-    this.metaService.updateTag(tag)
+    this.metaService.updateTag(tag);
   }
 
   private getDefaultKeywords() {
@@ -89,19 +91,14 @@ export class MetadataService {
 
   private allUrlTags(path?: string) {
     if (!path) { path = this.router.url; }
-
-    // We must access environment variables through string literal syntax
-    // tslint:disable-next-line: no-string-literal
-    const externalUrl = `${env['EXTERNAL_URL']}${path}`;
+    const externalUrl = `${environment.baseUrl}${path}`;
     this.addOrUpdateTag({ name: 'url', content: externalUrl });
     this.addOrUpdateTag({ property: 'og:url', content: externalUrl });
     this.addOrUpdateTag({ property: 'twitter:url', content: externalUrl });
   }
 
   private allImageTags(imagePath: string) {
-    // tslint:disable-next-line: no-string-literal
-    const baseUrl = env['EXTERNAL_URL'];
-    imagePath = `${baseUrl}/${imagePath}`;
+    imagePath = `${environment.baseUrl}${imagePath}`;
 
     this.addOrUpdateTag({ property: 'og:image', content: imagePath });
     this.addOrUpdateTag({ property: 'og:image:width', content: '240' });

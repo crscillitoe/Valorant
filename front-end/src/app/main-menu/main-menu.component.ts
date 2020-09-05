@@ -7,6 +7,7 @@ import {
 } from '../services/api.service';
 import { RankToIconService } from '../services/rank-to-icon.service';
 import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
+import { MetadataService } from '../services/metadata.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -17,7 +18,7 @@ export class MainMenuComponent {
   games: GetGamesResponse;
   stats: GetStatsResponse;
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private metadataService: MetadataService) {
     api.getGames().subscribe((games) => {
       console.log(games);
       this.games = games;
@@ -26,6 +27,7 @@ export class MainMenuComponent {
     api.getStats().subscribe((stats) => {
       console.log(stats);
       this.stats = stats;
+      this.metadataService.defaultTags(stats);
     });
   }
 
