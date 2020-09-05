@@ -26,7 +26,7 @@ export class ProfileCardComponent implements OnInit {
     return AgentNameToIconService.GetImagePath(icon);
   }
 
-  formatKDA(num: string): string {
+  formatKDA(num: any): string {
     const asNumber = +num;
     return asNumber.toFixed(2);
   }
