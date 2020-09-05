@@ -1,5 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Peta&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Righteous&display=swap");
+
+html {
+  background: #606060;
+}
+
+.circular {
+  border-radius: 50%;
+}
 
 .game-list {
   display: flex;
@@ -18,8 +31,7 @@
 }
 
 .kda {
-  padding-top: 15px;
-  padding-left: 50px;
+  margin: auto;
   font-size: 50px;
   font-family: "Lexend Peta", sans-serif;
 }

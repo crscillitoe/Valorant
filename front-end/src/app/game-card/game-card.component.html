@@ -1,9 +1,18 @@
-<div [style.background-color]="getColor(game)" class="game">
+<div
+  [style.background-color]="getColor(game)"
+  [style.border]="getOutline(game)"
+  (click)="viewSingleGame(game)"
+  class="game"
+>
   <img class="icon" [src]="getRankIcon(game[3])" />
-  <img class="icon" [src]="getAgentIcon(game[2])" />
-  <div class="kda">{{ game[5] }} / {{ game[6] }} / {{ game[7] }}</div>
+  <img class="icon circular" [src]="getAgentIcon(game[2])" />
+  <div class="kda">{{ game[5] }}/{{ game[6] }}/{{ game[7] }}</div>
 
-  <div *ngIf="game[11] !== 'N/A'">
-    <a [href]="game[11]">VOD</a>
+  <div class="video" *ngIf="game[11] !== 'N/A'">
+    <mat-icon> videocam </mat-icon>
+  </div>
+
+  <div class="video" *ngIf="game[11] === 'N/A'">
+    <mat-icon> videocam_off </mat-icon>
   </div>
 </div>

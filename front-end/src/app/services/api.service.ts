@@ -30,6 +30,13 @@ export class ApiService {
   }
 
   /**
+   * Get the aggregate stats
+   */
+  getStats(): Observable<GetStatsResponse> {
+    return this.http.get<GetStatsResponse>(`${this.api_url}/api/v1/getStats`);
+  }
+
+  /**
    * Returns a formatted version of the given game
    * @param game
    */
@@ -67,6 +74,61 @@ export interface GetGameByIDResponse {
    * The game requested
    */
   game: Game;
+}
+
+export interface GetStatsResponse {
+  /**
+   * Total games played
+   */
+  games_played: number;
+  /**
+   * Total wins
+   */
+  wins: number;
+  /**
+   * Total losses
+   */
+  losses: number;
+  /**
+   * Aggregate Winrate
+   */
+  win_rate: string;
+  /**
+   * Average kills per game
+   */
+  kills_average: number;
+  /**
+   * Average deaths per game
+   */
+  deaths_average: number;
+  /**
+   * Average assists per game
+   */
+  assists_average: number;
+  /**
+   * Player's current rank
+   */
+  current_rank: string;
+  /**
+   * Player's favorite agent
+   */
+  favorite_agent: string;
+  /**
+   * # of games played on favorite agent
+   */
+  favorite_agent_games_played: string;
+  /**
+   * # of wins on favorite agent
+   */
+  favorite_agent_wins: number;
+  /**
+   * # of losses on favorite agent
+   */
+  favorite_agent_losses: number;
+  /**
+   * Aggregate winrate on favorite agent
+   */
+  favorite_agent_win_rate: string;
 }
 
 /**
