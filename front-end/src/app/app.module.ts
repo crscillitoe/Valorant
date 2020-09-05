@@ -27,7 +27,7 @@ import { SafePipe } from './services/safe-pipe';
     SafePipe,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     MatIconModule,
@@ -37,4 +37,4 @@ import { SafePipe } from './services/safe-pipe';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
