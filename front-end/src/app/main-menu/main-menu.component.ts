@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GetGamesResponse, ApiService, Game } from '../services/api.service';
+import {
+  GetGamesResponse,
+  ApiService,
+  Game,
+  GetStatsResponse,
+} from '../services/api.service';
 import { RankToIconService } from '../services/rank-to-icon.service';
 import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
 
@@ -10,11 +15,17 @@ import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
 })
 export class MainMenuComponent {
   games: GetGamesResponse;
+  stats: GetStatsResponse;
 
   constructor(private api: ApiService) {
     api.getGames().subscribe((games) => {
       console.log(games);
       this.games = games;
+    });
+
+    api.getStats().subscribe((stats) => {
+      console.log(stats);
+      this.stats = stats;
     });
   }
 

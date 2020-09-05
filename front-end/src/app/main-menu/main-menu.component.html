@@ -1,7 +1,14 @@
-<div *ngIf="games">
-  <div class="game-list">
-    <ng-container *ngFor="let game of games.games">
-      <app-game-card [game]="game"> </app-game-card>
+<div class="main-menu">
+  <div class="side-menu">
+    <ng-container *ngIf="stats">
+      <app-profile-card [stats]="stats"></app-profile-card>
     </ng-container>
+  </div>
+  <div *ngIf="games">
+    <div class="game-list">
+      <ng-container *ngFor="let game of games.games">
+        <app-game-card [game]="game"> </app-game-card>
+      </ng-container>
+    </div>
   </div>
 </div>

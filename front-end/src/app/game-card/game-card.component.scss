@@ -1,0 +1,14 @@
+.game {
+  transition: all 0.2s ease-in-out;
+  max-width: 700px;
+}
+
+.game:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.video {
+  margin-left: auto;
+  padding: 10px;
+}

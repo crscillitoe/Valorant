@@ -7,10 +7,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { DetailViewComponent } from './detail-view/detail-view.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { GameCardComponent } from './game-card/game-card.component';
+import { ProfileCardComponent } from './profile-card/profile-card.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [AppComponent, DetailViewComponent, MainMenuComponent, GameCardComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [
+    AppComponent,
+    DetailViewComponent,
+    MainMenuComponent,
+    GameCardComponent,
+    ProfileCardComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, MatIconModule],
   providers: [],
   bootstrap: [AppComponent],
 })

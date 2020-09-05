@@ -38,11 +38,10 @@ if not creds or not creds.valid:
     with open("token.pickle", "wb") as token:
         pickle.dump(creds, token)
 
-service = build("sheets", "v4", credentials=creds)
-
 
 @app.route("/api/v1/getGameById/<game_id>", methods=["GET"])
 def get_game_by_id(game_id):
+    service = build("sheets", "v4", credentials=creds)
     result = (
         service.spreadsheets()
         .values()
@@ -62,6 +61,7 @@ def get_games():
     USAGE:
         GET /api/v1/getStats?page=5
     """
+    service = build("sheets", "v4", credentials=creds)
     page = request.args.get("page", default=0, type=int)
     num_games = get_num_games()
 
@@ -91,7 +91,36 @@ def get_games():
     return {"page": page, "pages": math.ceil(num_games / 10), "games": result}
 
 
+@app.route("/api/v1/getStats", methods=["GET"])
+def get_stats():
+    service = build("sheets", "v4", credentials=creds)
+    sheet = service.spreadsheets()
+    result = (
+        sheet.values()
+        .get(spreadsheetId=SPREADSHEET_ID, range="Statistics!B2:F10")
+        .execute()
+    )
+    values = result.get("values", [])
+    print(f"Values: {values}")
+    return {
+        "games_played": values[0][0],
+        "wins": values[1][0],
+        "losses": values[2][0],
+        "win_rate": values[3][0],
+        "kills_average": values[4][0],
+        "deaths_average": values[5][0],
+        "assists_average": values[6][0],
+        "current_rank": values[8][0],
+        "favorite_agent": values[0][4],
+        "favorite_agent_games_played": values[1][4],
+        "favorite_agent_wins": values[2][4],
+        "favorite_agent_losses": values[3][4],
+        "favorite_agent_win_rate": values[4][4],
+    }
+
+
 def get_num_games():
+    service = build("sheets", "v4", credentials=creds)
     sheet = service.spreadsheets()
     result = (
         sheet.values()
