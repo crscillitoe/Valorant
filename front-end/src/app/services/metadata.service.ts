@@ -7,15 +7,14 @@ import { env } from 'process';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MetadataService {
-
   constructor(
     private router: Router,
     private titleService: Title,
-    private metaService: Meta,
-  ) { }
+    private metaService: Meta
+  ) {}
 
   /**
    * These are the default meta tags that will be applied to a page
@@ -24,11 +23,20 @@ export class MetadataService {
   defaultTags(generalStats: GetStatsResponse) {
     this.allTypeTags();
     this.allUrlTags();
-    this.allTitleTags(`${generalStats.current_rank} ${generalStats.favorite_agent} Main`);
-    this.allImageTags(AgentNameToIconService.GetImagePath(generalStats.favorite_agent));
+    this.allTitleTags(
+      `Woohoojin - ${generalStats.current_rank} ${generalStats.favorite_agent} Main`
+    );
+    this.allImageTags(
+      AgentNameToIconService.GetImagePath(generalStats.favorite_agent)
+    );
 
-    this.allDescriptionTags(`Win rate: ${generalStats.win_rate} Total wins: ${generalStats.wins}`);
-    this.addOrUpdateTag({ name: 'keywords', content: this.getDefaultKeywords() });
+    this.allDescriptionTags(
+      `Win rate: ${generalStats.win_rate} Total wins: ${generalStats.wins}`
+    );
+    this.addOrUpdateTag({
+      name: 'keywords',
+      content: this.getDefaultKeywords(),
+    });
     this.addOrUpdateTag({ name: 'robots', content: 'index, follow' });
   }
 
@@ -45,8 +53,15 @@ export class MetadataService {
     this.allTitleTags(`Match ${game[0]}: ${agentName} ${gameOutcome}`);
     this.allImageTags(AgentNameToIconService.GetImagePath(agentName));
 
-    this.allDescriptionTags(`${game[3]} | ${game[5]}/${game[6]}/${game[7]} | ${game[9]}`);
-    this.addOrUpdateTag({ name: 'keywords', content: this.addDefaultKeywords(`${agentName}, ${agentName} ${gameOutcome}`) });
+    this.allDescriptionTags(
+      `${game[3]} | ${game[5]}/${game[6]}/${game[7]} | ${game[9]}`
+    );
+    this.addOrUpdateTag({
+      name: 'keywords',
+      content: this.addDefaultKeywords(
+        `${agentName}, ${agentName} ${gameOutcome}`
+      ),
+    });
     this.addOrUpdateTag({ name: 'robots', content: 'index, follow' });
   }
 
@@ -79,9 +94,9 @@ export class MetadataService {
    * @param desc The description to display
    */
   private allDescriptionTags(desc: string) {
-    this.addOrUpdateTag({ name: 'description', content: desc })
-    this.addOrUpdateTag({ property: 'og:description', content: desc })
-    this.addOrUpdateTag({ property: 'twitter:description', content: desc })
+    this.addOrUpdateTag({ name: 'description', content: desc });
+    this.addOrUpdateTag({ property: 'og:description', content: desc });
+    this.addOrUpdateTag({ property: 'twitter:description', content: desc });
   }
 
   private allTypeTags() {
@@ -90,7 +105,9 @@ export class MetadataService {
   }
 
   private allUrlTags(path?: string) {
-    if (!path) { path = this.router.url; }
+    if (!path) {
+      path = this.router.url;
+    }
     const externalUrl = `${environment.baseUrl}${path}`;
     this.addOrUpdateTag({ name: 'url', content: externalUrl });
     this.addOrUpdateTag({ property: 'og:url', content: externalUrl });
