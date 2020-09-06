@@ -10,9 +10,15 @@
 
   <div class="video" *ngIf="game[11] !== 'N/A'">
     <mat-icon> videocam </mat-icon>
+    <div class="date">
+      {{ game[9] }}
+    </div>
   </div>
 
   <div class="video" *ngIf="game[11] === 'N/A'">
     <mat-icon> videocam_off </mat-icon>
+    <div class="date">
+      {{ game[9] }}
+    </div>
   </div>
 </div>

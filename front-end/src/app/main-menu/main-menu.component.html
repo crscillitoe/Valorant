@@ -6,9 +6,53 @@
       <app-win-rate-bars [winrates]="winRates"></app-win-rate-bars>
     </div>
     <div class="game-list">
-      <ng-container *ngFor="let game of games.games">
-        <app-game-card [game]="game"> </app-game-card>
+      <ng-container *ngIf="!loadingGames">
+        <ng-container *ngFor="let game of games.games">
+          <app-game-card [game]="game"> </app-game-card>
+        </ng-container>
       </ng-container>
+
+      <div class="bar" *ngIf="loadingGames">
+        <mat-progress-bar color="accent" mode="buffer"></mat-progress-bar>
+      </div>
+
+      <div class="pagination" *ngIf="!loadingGames">
+        <button
+          [disabled]="selectedPage === 1"
+          color="accent"
+          mat-stroked-button
+          (click)="firstPage()"
+        >
+          <mat-icon>first_page</mat-icon>
+        </button>
+        <button
+          [disabled]="selectedPage === 1"
+          color="accent"
+          mat-stroked-button
+          (click)="previousPage()"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <div class="page">Page {{ selectedPage }} / {{ games.pages }}</div>
+
+        <button
+          [disabled]="selectedPage === games.pages + 1"
+          color="accent"
+          mat-stroked-button
+          (click)="nextPage()"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+        <button
+          [disabled]="selectedPage === games.pages + 1"
+          color="accent"
+          mat-stroked-button
+          (click)="lastPage()"
+        >
+          <mat-icon>last_page</mat-icon>
+        </button>
+      </div>
     </div>
   </ng-container>
   <ng-container *ngIf="!stats || !games || !winRates">

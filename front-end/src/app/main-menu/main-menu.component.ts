@@ -9,6 +9,7 @@ import {
 import { RankToIconService } from '../services/rank-to-icon.service';
 import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
 import { MetadataService } from '../services/metadata.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-menu',
@@ -20,9 +21,25 @@ export class MainMenuComponent {
   stats: GetStatsResponse;
   winRates: GetWinratesResponse;
 
-  constructor(private api: ApiService, private metadataService: MetadataService) {
-    api.getGames().subscribe((games) => {
-      this.games = games;
+  selectedPage: number = 1;
+  loadingGames: boolean = false;
+
+  constructor(
+    private api: ApiService,
+    private metadataService: MetadataService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    route.queryParams.subscribe((params) => {
+      let page = 1;
+      if (params['page']) {
+        page = +params['page'];
+        this.selectedPage = page;
+      }
+
+      api.getGames(page - 1).subscribe((games) => {
+        this.games = games;
+      });
     });
 
     api.getStats().subscribe((stats) => {
@@ -42,6 +59,65 @@ export class MainMenuComponent {
         if (+a.games_played > +b.games_played) return -1;
         return 0;
       });
+    });
+  }
+
+  updatePage(page: number) {
+    window.scrollTo(0, 0);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  specificPage(page: number) {
+    this.loadingGames = true;
+    this.api.getGames(page).subscribe((games) => {
+      this.selectedPage = games.page + 1;
+      this.updatePage(this.selectedPage);
+      this.games = games;
+      this.loadingGames = false;
+    });
+  }
+
+  firstPage() {
+    this.loadingGames = true;
+    this.api.getGames().subscribe((games) => {
+      this.selectedPage = games.page + 1;
+      this.updatePage(this.selectedPage);
+      this.games = games;
+      this.loadingGames = false;
+    });
+  }
+
+  lastPage() {
+    this.loadingGames = true;
+    this.api.getGames(this.games.pages).subscribe((games) => {
+      this.selectedPage = games.page + 1;
+      this.updatePage(this.selectedPage);
+      this.games = games;
+      this.loadingGames = false;
+    });
+  }
+
+  previousPage() {
+    this.loadingGames = true;
+    this.api.getGames(this.games.page - 1).subscribe((games) => {
+      this.selectedPage = games.page + 1;
+      this.updatePage(this.selectedPage);
+      this.games = games;
+      this.loadingGames = false;
+    });
+  }
+
+  nextPage() {
+    this.loadingGames = true;
+    this.api.getGames(this.games.page + 1).subscribe((games) => {
+      this.selectedPage = games.page + 1;
+      this.updatePage(this.selectedPage);
+      this.games = games;
+      this.loadingGames = false;
     });
   }
 

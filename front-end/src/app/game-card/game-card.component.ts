@@ -29,9 +29,9 @@ export class GameCardComponent implements OnInit {
 
   getOutline(game: Game) {
     if (game[1] === 'Loss') {
-      return 'solid #ffccbc';
+      return '#ffccbc';
     } else {
-      return 'solid #c8e6c9';
+      return '#c8e6c9';
     }
   }
 

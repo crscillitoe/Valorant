@@ -16,3 +16,19 @@
   justify-content: center;
   height: 90vh;
 }
+
+.pagination {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.bar {
+  padding: 10px;
+}
+
+.page {
+  font-family: "Nunito", sans-serif;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 25px;
+}
