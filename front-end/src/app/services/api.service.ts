@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  api_url: string = 'https://valorant-api.woohoojin.dev';
-  constructor(private http: HttpClient) {}
+  apiUrl: string = environment.apiUrl;
+  constructor(private http: HttpClient) { }
 
   /**
    * Returns the game information for the specified game
@@ -15,7 +16,7 @@ export class ApiService {
    */
   getGameByID(ID: number): Observable<GetGameByIDResponse> {
     return this.http.get<GetGameByIDResponse>(
-      `${this.api_url}/api/v1/getGameById/${ID}`
+      `${this.apiUrl}/api/v1/getGameById/${ID}`
     );
   }
 
@@ -25,7 +26,7 @@ export class ApiService {
    */
   getGames(page: number = 0): Observable<GetGamesResponse> {
     return this.http.get<GetGamesResponse>(
-      `${this.api_url}/api/v1/getGames?page=${page}`
+      `${this.apiUrl}/api/v1/getGames?page=${page}`
     );
   }
 
@@ -33,7 +34,7 @@ export class ApiService {
    * Get the aggregate stats
    */
   getStats(): Observable<GetStatsResponse> {
-    return this.http.get<GetStatsResponse>(`${this.api_url}/api/v1/getStats`);
+    return this.http.get<GetStatsResponse>(`${this.apiUrl}/api/v1/getStats`);
   }
 
   /**
@@ -41,7 +42,7 @@ export class ApiService {
    */
   getWinrates(): Observable<GetWinratesResponse> {
     return this.http.get<GetWinratesResponse>(
-      `${this.api_url}/api/v1/getWinrates`
+      `${this.apiUrl}/api/v1/getWinrates`
     );
   }
 

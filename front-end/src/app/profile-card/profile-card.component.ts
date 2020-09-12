@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { GetStatsResponse } from '../services/api.service';
 import { RankToIconService } from '../services/rank-to-icon.service';
 import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile-card',
@@ -11,11 +12,13 @@ import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
 export class ProfileCardComponent implements OnInit {
   @Input() stats: GetStatsResponse;
   kda: string;
+  username: string;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.kda = this.calculateKDA();
+    this.username = environment.username;
   }
 
   getRankIcon(icon: string) {

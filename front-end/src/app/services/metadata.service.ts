@@ -3,7 +3,6 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 import { Game, GetStatsResponse } from '../services/api.service';
 import { AgentNameToIconService } from '../services/agent-name-to-icon.service';
 import { Router } from '@angular/router';
-import { env } from 'process';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class MetadataService {
     private router: Router,
     private titleService: Title,
     private metaService: Meta
-  ) {}
+  ) { }
 
   /**
    * These are the default meta tags that will be applied to a page
@@ -24,7 +23,7 @@ export class MetadataService {
     this.allTypeTags();
     this.allUrlTags();
     this.allTitleTags(
-      `Woohoojin - ${generalStats.current_rank} ${generalStats.favorite_agent} Main`
+      `${environment.username} - ${generalStats.current_rank} ${generalStats.favorite_agent} Main`
     );
     this.allImageTags(
       AgentNameToIconService.GetImagePath(generalStats.favorite_agent)

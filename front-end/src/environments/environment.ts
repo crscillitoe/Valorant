@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   baseUrl: 'https://app.woohoojin.dev',
+  username: 'Woohoojin',
+  apiUrl: 'https://valorant-api.woohoojin.dev'
 };
 
 /*
