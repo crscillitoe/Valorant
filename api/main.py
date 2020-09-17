@@ -41,13 +41,14 @@ if not creds or not creds.valid:
 
 @app.route("/api/v1/getGameById/<game_id>", methods=["GET"])
 def get_game_by_id(game_id):
+    num_games = get_num_games()
     service = build("sheets", "v4", credentials=creds)
     result = (
         service.spreadsheets()
         .values()
         .get(
             spreadsheetId=SPREADSHEET_ID,
-            range=f"Games!A{int(game_id) + 1}:M{int(game_id) + 1}",
+            range=f"Games!A{num_games - int(game_id) + 2}:M{num_games - int(game_id) + 2}",
         )
         .execute()
     ).get("values", [])
@@ -68,17 +69,17 @@ def get_games():
     # Page size is 10
     page_size = 8
 
-    start_index = num_games - (page_size - 2)
-    end_index = num_games + 1
+    start_index = 2
+    end_index = start_index + page_size - 1
 
-    start_index -= page * page_size
-    end_index -= page * page_size
+    start_index += page * page_size
+    end_index += page * page_size
 
-    if start_index < 2:
-        start_index = 2
-        end_index = 2 + (page_size - 1)
+    if start_index > num_games:
+        start_index = num_games - page_size - 2
+        end_index = num_games + 1
 
-    # Grab the 10 most recent games
+    # Grab the page_size most recent games
     result = (
         service.spreadsheets()
         .values()
@@ -89,7 +90,6 @@ def get_games():
         .execute()
     ).get("values", [])
 
-    result.reverse()
     return {"page": page, "pages": math.ceil(num_games / page_size), "games": result}
 
 
