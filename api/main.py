@@ -17,8 +17,11 @@ from google.auth.transport.requests import Request
 # We will only be reading from our spreadsheet
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
+with open("config.json", "r") as config_file:
+    config = json.load(config_file)
+
 # The ID of our spreadsheet
-SPREADSHEET_ID = "10n2jJocYWrr9bMD5nAjqig0D8V-JKy4EOpGTmhGR6S8"
+SPREADSHEET_ID = config["spreadsheed_id"]
 
 creds = None
 # The file token.pickle stores the user's access and refresh tokens, and is
@@ -83,10 +86,7 @@ def get_games():
     result = (
         service.spreadsheets()
         .values()
-        .get(
-            spreadsheetId=SPREADSHEET_ID,
-            range=f"Games!A{start_index}:M{end_index}",
-        )
+        .get(spreadsheetId=SPREADSHEET_ID, range=f"Games!A{start_index}:M{end_index}",)
         .execute()
     ).get("values", [])
 
