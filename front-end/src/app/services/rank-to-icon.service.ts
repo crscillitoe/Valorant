@@ -12,7 +12,7 @@ export class RankToIconService {
   /**
    * Returns the localized path to the rank's icon image file
    *
-   * @param agentName The name of the agent
+   * @param rank The player's rank, e.g. "Bronze 1", "Platinum 3"
    */
   static GetImagePath(rank: string) {
     rank = rank.replace(' ', '_');

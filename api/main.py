@@ -21,7 +21,7 @@ with open("config.json", "r") as config_file:
     config = json.load(config_file)
 
 # The ID of our spreadsheet
-SPREADSHEET_ID = config["spreadsheed_id"]
+SPREADSHEET_ID = config["spreadsheet_id"]
 
 creds = None
 # The file token.pickle stores the user's access and refresh tokens, and is
